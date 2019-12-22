@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const PageUser = () => {
+const PageUser = (props: any) => {
   return <div>USER</div>;
 };
 

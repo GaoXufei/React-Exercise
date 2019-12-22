@@ -1,7 +1,8 @@
 import * as React from "react";
+import { RouteComponentProps } from "react-router-dom";
 
-const PageIndex: React.FC = () => {
-  return <div>INDEX</div>;
+const PageIndex = (props: RouteComponentProps) => {
+  return <div>POst</div>;
 };
 
 export default PageIndex;
