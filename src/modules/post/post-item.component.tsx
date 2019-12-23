@@ -30,7 +30,7 @@ export default ({ item, handleRemove }: { item: PostDto, handleRemove: any }) =>
     >
       <Meta
         avatar={<Avatar src={item.user.avatar.url} />}
-        title={<Link to={`/`}>{item.title}</Link>}
+        title={<Link to={`/posts/${item.id}`}>{item.title}</Link>}
         description={item.created}
       />
       {item.content}

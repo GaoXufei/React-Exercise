@@ -21,6 +21,13 @@ const Post = (props: any) => (
   </Suspense>
 );
 
+const PostDetailsComponent = lazy(() => import("@/pages/posts/details"))
+const Details = (props: any) => (
+  <Suspense fallback={null}>
+    <PostDetailsComponent {...props} />
+  </Suspense>
+);
+
 /**
  * 用户模块
  */
@@ -61,23 +68,27 @@ export default [
       {
         path: "/posts",
         exact: true,
-        component: Post
+        component: Post,
+      },
+      {
+        path: '/posts/:id',
+        exact: true,
+        component: Details,
       },
       {
         path: "/user",
         exact: true,
         component: User,
-        routes: [
-          {
-            path: '/register',
-            exact: true,
-            component: Register,
-          }
-        ],
+      },
+      {
+        path: "/register",
+        exact: true,
+        component: Register,
       },
       {
         path: '*',
-        hasHeader: false,
+        hideHeader: true,
+        hideFooter: true,
         component: NotFound
       }
     ],

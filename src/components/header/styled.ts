@@ -6,6 +6,7 @@ export const View = styled.header`
   padding:0 50px;
   box-sizing: border-box;
   border-bottom: 1px solid #ccc;
+  margin-top: -76px;
 `;
 
 export const LogoWrapper = styled.div`
