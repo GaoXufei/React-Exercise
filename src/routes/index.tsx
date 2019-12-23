@@ -31,6 +31,13 @@ const User = (props: any) => (
   </Suspense>
 );
 
+const RegisterComponent = lazy(() => import("@/pages/user/register"))
+const Register = (props: any) => (
+  <Suspense fallback={null}>
+    <RegisterComponent {...props} />
+  </Suspense>
+);
+
 /**
  * 404模块
  */
@@ -59,7 +66,14 @@ export default [
       {
         path: "/user",
         exact: true,
-        component: User
+        component: User,
+        routes: [
+          {
+            path: '/register',
+            exact: true,
+            component: Register,
+          }
+        ],
       },
       {
         path: '*',

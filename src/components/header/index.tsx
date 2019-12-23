@@ -6,15 +6,20 @@ export default () => {
   return (
     <View>
       <LogoWrapper>
-        <div className="logo">Gao</div>
+        <div className="logo">Gaoxufei</div>
       </LogoWrapper>
       <NavWrapper>
-
-        <ul>
-          <li><NavLink to={`/`}>Index</NavLink></li>
-        </ul>
+        <nav>
+          <ul>
+            <li><NavLink to={`/posts`} activeClassName={`actived`}>首页</NavLink></li>
+          </ul>
+        </nav>
         <aside>
-
+          <ul>
+            <li>
+              <NavLink to={`/user`}>注册</NavLink>
+            </li>
+          </ul>
         </aside>
 
       </NavWrapper>
