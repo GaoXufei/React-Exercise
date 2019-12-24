@@ -1,22 +1,20 @@
 import * as React from 'react'
 import { LayoutWrapper } from '@/layouts/default';
 import { RouteComponentProps } from 'react-router-dom';
-import list from '@/mocks/data'
 import { PostDto } from '@/interfaces/post.dto';
+import API from '@/api/api-request';
 
 const PagePostDetails = (props: RouteComponentProps<any>) => {
   const postId = Number(props.match.params.id);
   const [details, setDetails] = React.useState<PostDto>()
 
   React.useEffect(() => {
-    setDetails(
-      getDetails(postId)
-    );
+    getDetails(postId)
   }, [postId])
 
-  function getDetails(id: number): PostDto {
-    const [details] = list.filter(item => item.id === id);
-    return details;
+  async function getDetails(id: number) {
+    const { data } = await API.postDetails(id)
+    setDetails(data)
   }
 
   return (

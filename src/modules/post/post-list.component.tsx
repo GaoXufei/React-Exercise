@@ -3,7 +3,7 @@ import { PostDto } from '../../interfaces/post.dto'
 import { List } from 'antd';
 import PostItem from './post-item.component'
 
-export default ({ list, handleRemove }: { list: PostDto[], handleRemove: any }) => {
+export default ({ list }: { list: PostDto[] }) => {
 
   return (
     <List
@@ -16,7 +16,7 @@ export default ({ list, handleRemove }: { list: PostDto[], handleRemove: any }) 
         pageSize: 10,
       }}
       dataSource={list}
-      renderItem={item => <PostItem handleRemove={handleRemove} item={item} />}
+      renderItem={item => <PostItem item={item} />}
     />
   );
 }
