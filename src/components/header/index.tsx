@@ -17,7 +17,7 @@ export default () => {
         <aside>
           <ul>
             <li>
-              <NavLink to={`/register`}>注册</NavLink>
+              <NavLink to={`/register`} activeClassName={`actived`}>注册</NavLink>
             </li>
           </ul>
         </aside>
