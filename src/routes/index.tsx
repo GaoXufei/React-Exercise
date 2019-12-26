@@ -7,53 +7,49 @@ const { lazy, Suspense } = React;
  * 主页模块
  */
 const HomeComponent = lazy(() => import('@/pages/home'))
-const Home = (props: any) => <Suspense fallback={null}>
-  <HomeComponent {...props} />
-</Suspense>
+const Home = (props: any) =>
+  <Suspense fallback={null}>
+    <HomeComponent {...props} />
+  </Suspense>;
 
 /**
  * 文章模块
  */
 const PostComponent = lazy(() => import("@/pages/posts"));
-const Post = (props: any) => (
-  <Suspense fallback={null}>
+const Post = (props: any) =>
+  <Suspense fallback={<div>LOADING</div>}>
     <PostComponent {...props} />
-  </Suspense>
-);
+  </Suspense>;
 
 const PostDetailsComponent = lazy(() => import("@/pages/posts/details"))
-const Details = (props: any) => (
+const Details = (props: any) =>
   <Suspense fallback={null}>
     <PostDetailsComponent {...props} />
-  </Suspense>
-);
+  </Suspense>;
 
 /**
  * 用户模块
  */
 const UserComponent = lazy(() => import("@/pages/user"));
-const User = (props: any) => (
+const User = (props: any) =>
   <Suspense fallback={null}>
     <UserComponent {...props} />
-  </Suspense>
-);
+  </Suspense>;
 
 const RegisterComponent = lazy(() => import("@/pages/user/register"))
-const Register = (props: any) => (
+const Register = (props: any) =>
   <Suspense fallback={null}>
     <RegisterComponent {...props} />
-  </Suspense>
-);
+  </Suspense>;
 
 /**
  * 404模块
  */
 const NotFoundComponent = lazy(() => import('@/pages/page-not-found'))
-const NotFound = (props: any) => (
+const NotFound = (props: any) =>
   <Suspense fallback={null}>
     <NotFoundComponent {...props} />
-  </Suspense>
-);
+  </Suspense>;
 
 
 export default [
