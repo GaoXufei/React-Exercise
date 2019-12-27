@@ -1,28 +1,40 @@
 import * as React from 'react'
 import { LayoutWrapper } from '@/layouts/default';
-import { RouteComponentProps } from 'react-router-dom';
 import { PostDto } from '@/interfaces/post.dto';
-import API from '@/api/api-request';
+import { connect } from 'react-redux'
+import { getPostDetails as ReduxGetPostDetails } from './store/actionCreators'
 
-const PagePostDetails = (props: RouteComponentProps<any>) => {
+const PagePostDetails = (props: any) => {
   const postId = Number(props.match.params.id);
-  const [details, setDetails] = React.useState<PostDto>()
+  const { postDetails } = props;
+  const { getPostDetails } = props;
 
   React.useEffect(() => {
-    getDetails(postId)
-  }, [postId])
+    if (!postDetails.size) {
+      getPostDetails(postId)
+    }
+  }, [postId, postDetails, getPostDetails])
 
-  async function getDetails(id: number) {
-    const { data } = await API.postDetails(id)
-    setDetails(data)
-  }
+  const resultPostDetails: PostDto = postDetails.toJS()
 
   return (
     <LayoutWrapper>
-      <h1>{details?.title}</h1>
-      {details?.content}
+      <h1>{resultPostDetails?.title}</h1>
+      <h2>{resultPostDetails?.user?.username}</h2>
+      <p>{resultPostDetails?.created}</p>
+      {resultPostDetails?.content}
     </LayoutWrapper>
   );
 }
 
-export default PagePostDetails;
+const mapStateToProps = (state: any) => ({
+  postDetails: state.getIn(['posts', 'postDetails'])
+});
+
+const mapDispatchToProps = (dispatch: React.Dispatch<any>) => {
+  return {
+    getPostDetails: (id: number) => dispatch(ReduxGetPostDetails(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PagePostDetails);

@@ -3,7 +3,7 @@ import PostListComponent from '@/modules/post/post-list.component'
 import { LayoutWrapper } from "../../layouts/default";
 import { connect } from 'react-redux';
 import { Dispatch } from "redux";
-import { getPostList as ReduxGetPostList } from './index-store/actionCreators'
+import { getPostList as ReduxGetPostList } from './store/actionCreators'
 
 const PageIndex = (props: any) => {
 
@@ -27,7 +27,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): any => {
   return {
-    getPostList: () => dispatch(ReduxGetPostList()),
+    getPostList: () => dispatch(ReduxGetPostList({ limit: 37 })),
   };
 }
 
