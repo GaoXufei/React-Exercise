@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux-immutable';
-import { reducer as PostListReducer } from '@/pages/posts/store'
+import { reducer as PostReducer } from '@/pages/posts/store'
+import { reducer as UserReducer } from '@/pages/user/store'
 
 export default combineReducers({
-  posts: PostListReducer,
+  posts: PostReducer,
+  users: UserReducer,
 })

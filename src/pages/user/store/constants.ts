@@ -1,0 +1,1 @@
+export const CHANGE_USER_REGISTER = `home/user/CHANGE_USER_REGISTER`;
