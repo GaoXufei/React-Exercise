@@ -36,10 +36,22 @@ const User = (props: any) =>
     <UserComponent {...props} />
   </Suspense>;
 
+const UserHomeComponent = lazy(() => import("@/pages/user/home"))
+const UserHome = (props: any) =>
+  <Suspense fallback={null}>
+    <UserHomeComponent {...props} />
+  </Suspense>;
+
 const RegisterComponent = lazy(() => import("@/pages/user/register"))
 const Register = (props: any) =>
   <Suspense fallback={null}>
     <RegisterComponent {...props} />
+  </Suspense>;
+
+const LoginComponent = lazy(() => import("@/pages/user/login"))
+const Login = (props: any) =>
+  <Suspense fallback={null}>
+    <LoginComponent {...props} />
   </Suspense>;
 
 /**
@@ -73,13 +85,24 @@ export default [
       },
       {
         path: "/user",
-        exact: true,
         component: User,
-      },
-      {
-        path: "/register",
-        exact: true,
-        component: Register,
+        routes: [
+          {
+            path: "/user",
+            exact: true,
+            component: UserHome,
+          },
+          {
+            path: "/user/login",
+            exact: true,
+            component: Login,
+          },
+          {
+            path: "/user/register",
+            exact: true,
+            component: Register
+          }
+        ],
       },
       {
         path: '*',
