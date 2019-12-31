@@ -5,18 +5,19 @@ import { Dispatch } from 'redux';
 import { userRegister } from './store/actionCreators';
 import { RegisterDto } from '@/interfaces/register.dto';
 import RouterTransition from '@/ui/router-transform-user'
+import { View } from './styles'
 
 const PageRegister = (props: any, result: any) => {
-
   const { actionRegister } = props;
   function handleSubmit(data: RegisterDto) {
     actionRegister(data)
   }
 
-
   return (
     <RouterTransition {...props}>
-      <RegisterComponent playHandleSubmit={handleSubmit} />
+      <View>
+        <RegisterComponent playHandleSubmit={handleSubmit} />
+      </View>
     </RouterTransition>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { renderRoutes, matchRoutes } from 'react-router-config';
-import { View } from './styled'
+import { View, Main } from './styled'
 
 /**
  * component
@@ -19,9 +19,9 @@ const PageHome = (props: any) => {
   return (
     <View>
       {hideHeader && <ComponentHeader />}
-      <main>
+      <Main>
         {renderRoutes(route.routes)}
-      </main>
+      </Main>
       {hideFooter && <ComponentFooter />}
     </View>
   )
