@@ -18,7 +18,7 @@ const PagePostDetails = (props: any) => {
   const resultPostDetails: PostDto = postDetails.toJS()
 
   return (
-    <LayoutWrapper>
+    <LayoutWrapper centerMargin={true} padding={true}>
       <h1>{resultPostDetails?.title}</h1>
       <h2>{resultPostDetails?.user?.username}</h2>
       <p>{resultPostDetails?.created}</p>

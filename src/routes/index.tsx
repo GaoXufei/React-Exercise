@@ -17,7 +17,7 @@ const Home = (props: any) =>
  */
 const PostComponent = lazy(() => import("@/pages/posts"));
 const Post = (props: any) =>
-  <Suspense fallback={<div>LOADING</div>}>
+  <Suspense fallback={null}>
     <PostComponent {...props} />
   </Suspense>;
 

@@ -8,6 +8,6 @@ export const View = styled.div`
 
 export const Main = styled.main`
   min-height: 100%;
-  padding: 40px 0;
+  display: flex;
   position: relative;
 `;

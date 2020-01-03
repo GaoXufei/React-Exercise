@@ -1,5 +1,5 @@
 import * as React from "react";
-import PostListComponent from '@/modules/post/post-list.component'
+import PostListModule from '@/modules/post/post-list.module'
 import { LayoutWrapper } from "../../layouts/default";
 import { connect } from 'react-redux';
 import { Dispatch } from "redux";
@@ -15,8 +15,8 @@ const PageIndex = (props: any) => {
   }, [postList, getPostList])
 
   return (
-    <LayoutWrapper>
-      <PostListComponent list={postList} />
+    <LayoutWrapper padding={true} centerMargin={true}>
+      <PostListModule list={postList} />
     </LayoutWrapper>
   );
 };

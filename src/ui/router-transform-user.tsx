@@ -4,24 +4,24 @@ import { CSSTransition } from 'react-transition-group';
 
 export default ({ children }: any) => {
   const [show, setShow] = React.useState(false);
+
   React.useEffect(() => {
     setShow(true);
     return () => {
       setShow(false)
     }
   }, [])
-
   return (
     <CSSTransition
       in={show}
-      timeout={500}
+      timeout={2000}
       appear={true}
       unmountOnExit
       classNames={{
         enter: 'animated',
-        enterActive: 'fadeIn',
+        enterActive: 'fadeInUp',
         exit: 'animated',
-        exitActive: 'fadeOut'
+        exitActive: 'fadeOutDown'
       }}
     >
       {children}

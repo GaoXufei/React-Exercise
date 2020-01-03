@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Icon } from 'antd';
 import { WrappedFormUtils } from 'antd/lib/form/Form';
+import { Link } from 'react-router-dom';
 
 const { Item } = Form;
 
-const RegisterComponent = (props: { form: WrappedFormUtils, playHandleSubmit: any }) => {
+const RegisterModule = (props: { form: WrappedFormUtils, playHandleSubmit: any }) => {
   const [confirmDirty, setConfirmDirty] = React.useState<boolean>(false);
   const { form, playHandleSubmit } = props;
   const { getFieldDecorator } = form;
@@ -46,26 +47,39 @@ const RegisterComponent = (props: { form: WrappedFormUtils, playHandleSubmit: an
 
   return (
     <Form onSubmit={_handleSubmit}>
-      <Item label={`用户名`} hasFeedback>
+      <Item hasFeedback>
         {getFieldDecorator('username', {
           rules: [{ required: true, message: '用户名不能为空' }]
-        })(<Input />)}
+        })(<Input
+          prefix={<Icon type="user" style={{ color: '#fff' }} />}
+          placeholder={`用户名`}
+        />)}
       </Item>
-      <Item label={`密码`} hasFeedback>
+      <Item hasFeedback>
         {getFieldDecorator('password', {
           rules: [
             { required: true, message: '密码不能为空' },
             { validator: validateToNextPassword }
           ]
-        })(<Input.Password />)}
+        })(<Input.Password
+          prefix={<Icon type="lock" style={{ color: '#fff' }} />}
+          placeholder={`密码`}
+        />)}
       </Item>
-      <Item label={`确认密码`} hasFeedback>
+      <Item hasFeedback>
         {getFieldDecorator('confirm', {
           rules: [
             { required: true, message: '确认密码不能为空' },
             { validator: compareToFirstPassword }
           ]
-        })(<Input.Password onBlur={_handleConfirm} />)}
+        })(<Input.Password onBlur={_handleConfirm}
+          prefix={<Icon type="lock" style={{ color: '#fff' }} />}
+          placeholder={`确认密码`}
+        />)}
+      </Item>
+      <Item>
+        <Icon type="login" style={{ color: '#1890ff', marginRight: '10px' }} />
+        <Link to={`/user/login`}>用户登录</Link>
       </Item>
       <Item>
         <Button type="primary" htmlType="submit">注册</Button>
@@ -74,7 +88,7 @@ const RegisterComponent = (props: { form: WrappedFormUtils, playHandleSubmit: an
   );
 };
 
-const CreateForm = Form.create({ name: 'register' })(RegisterComponent);
+const CreateForm = Form.create({ name: 'register' })(RegisterModule);
 
 export default (props: any) => <CreateForm {...props} />
 // export default CreateForm;

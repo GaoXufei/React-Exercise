@@ -5,7 +5,7 @@ import { LayoutWrapper } from "../../layouts/default";
 const PageUser = (props: any) => {
 
   return (
-    <LayoutWrapper vertical={true}>
+    <LayoutWrapper>
       {renderRoutes(props.route.routes)}
     </LayoutWrapper>
   );

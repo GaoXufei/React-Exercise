@@ -1,11 +1,11 @@
 import * as React from 'react';
-import RegisterComponent from '@/modules/user/register.component';
+import RegisterModule from '@/modules/user/register.module';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { userRegister } from './store/actionCreators';
 import { RegisterDto } from '@/interfaces/register.dto';
 import RouterTransition from '@/ui/router-transform-user'
-import { View } from './styles'
+import { View, Wrapper } from './styles'
 
 const PageRegister = (props: any, result: any) => {
   const { actionRegister } = props;
@@ -14,11 +14,13 @@ const PageRegister = (props: any, result: any) => {
   }
 
   return (
-    <RouterTransition {...props}>
-      <View>
-        <RegisterComponent playHandleSubmit={handleSubmit} />
-      </View>
-    </RouterTransition>
+    <Wrapper>
+      <RouterTransition {...props}>
+        <View>
+          <RegisterModule playHandleSubmit={handleSubmit} />
+        </View>
+      </RouterTransition>
+    </Wrapper>
   );
 }
 
