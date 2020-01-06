@@ -11,11 +11,15 @@ const changeUserRegister = (data: any) => ({
   data
 })
 
-const changeUserLogin = (data: any) => ({
+const changeUserLogin = (isLogin: boolean) => ({
   type: CHANGE_USER_LOGIN,
-  data
+  isLogin
 })
 
+/**
+ * 注册
+ * @param registerMessage 注册信息
+ */
 export const userRegister = (registerMessage: RegisterDto) => {
   return async (dispatch: Dispatch<any>) => {
     const { data }: AxiosResponse<any> = await API.userRegister(registerMessage)
@@ -26,9 +30,23 @@ export const userRegister = (registerMessage: RegisterDto) => {
   }
 }
 
+/**
+ * 登录
+ * @param loginMessage 登录信息
+ */
 export const userLogin = (loginMessage: LoginDto) => {
   return async (dispatch: Dispatch<any>) => {
     const { data }: AxiosResponse<any> = await API.userLogin(loginMessage);
-    dispatch(changeUserLogin(data));
+
+    switch (data.statusCode) {
+      case 400:
+        return AntdMessage.error(data.message)
+      case 404:
+        return AntdMessage.error(data.message);
+      case 200:
+        AntdMessage.success(data.message);
+        dispatch(changeUserLogin(true));
+    }
+    window.localStorage.setItem(`token`, data.userInfo.token);
   }
 }
