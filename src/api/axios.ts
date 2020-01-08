@@ -2,10 +2,17 @@ import axios from 'axios';
 
 axios.interceptors.request.use(
   config => {
-    const token = window.localStorage.getItem('token') || "";
-    config.headers.Authorization = `Bearer Token ${token}`;
     return config;
   },
 );
+
+axios.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    return error;
+  }
+)
 
 export default axios;

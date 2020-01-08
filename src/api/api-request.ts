@@ -1,5 +1,6 @@
 import * as apis from './api-manager';
 import axios from './axios';
+// import authAxios from './axios_auth' // 需要权限的api
 import { RegisterDto } from '@/interfaces/register.dto';
 import { LoginDto } from '../interfaces/login.dto';
 // 文章列表

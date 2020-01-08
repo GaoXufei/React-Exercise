@@ -47,6 +47,7 @@ export const userLogin = (loginMessage: LoginDto) => {
         AntdMessage.success(data.message);
         dispatch(changeUserLogin(true));
     }
+    window.localStorage.setItem('USER_ID', data.userInfo.id);
     window.localStorage.setItem(`token`, data.userInfo.token);
   }
 }
