@@ -1,4 +1,4 @@
-import { CHANGE_USER_REGISTER, CHANGE_USER_LOGIN } from './constants';
+import { CHANGE_USER_REGISTER, CHANGE_USER_LOGIN, CHANGE_USER_TOKEN } from './constants';
 import { RegisterDto } from '@/interfaces/register.dto';
 import { Dispatch } from 'redux';
 import API from '@/api/api-request';
@@ -14,6 +14,11 @@ const changeUserRegister = (data: any) => ({
 const changeUserLogin = (isLogin: boolean) => ({
   type: CHANGE_USER_LOGIN,
   isLogin
+})
+
+const changeUserToken = (data: any) => ({
+  type: CHANGE_USER_TOKEN,
+  data
 })
 
 /**
@@ -40,7 +45,7 @@ export const userLogin = (loginMessage: LoginDto) => {
 
     switch (data.statusCode) {
       case 400:
-        return AntdMessage.error(data.message)
+        return AntdMessage.error(data.message);
       case 404:
         return AntdMessage.error(data.message);
       case 200:
@@ -49,5 +54,15 @@ export const userLogin = (loginMessage: LoginDto) => {
     }
     window.localStorage.setItem('USER_ID', data.userInfo.id);
     window.localStorage.setItem(`token`, data.userInfo.token);
+  }
+}
+
+/**
+ * 根据token获取用户数据
+ */
+export const actionUserToken = () => {
+  return async (dispatch: Dispatch<any>) => {
+    const { data }: AxiosResponse<any> = await API.userToken();
+    dispatch(changeUserToken(data));
   }
 }
