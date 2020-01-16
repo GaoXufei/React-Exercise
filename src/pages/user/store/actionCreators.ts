@@ -5,6 +5,7 @@ import API from '@/api/api-request';
 import { AxiosResponse } from 'axios';
 import { message as AntdMessage } from 'antd';
 import { LoginDto } from '../../../interfaces/login.dto';
+import { fromJS } from 'immutable';
 
 const changeUserRegister = (data: any) => ({
   type: CHANGE_USER_REGISTER,
@@ -18,7 +19,7 @@ const changeUserLogin = (isLogin: boolean) => ({
 
 const changeUserToken = (data: any) => ({
   type: CHANGE_USER_TOKEN,
-  data
+  data: fromJS(data)
 })
 
 /**
@@ -27,10 +28,13 @@ const changeUserToken = (data: any) => ({
  */
 export const userRegister = (registerMessage: RegisterDto) => {
   return async (dispatch: Dispatch<any>) => {
-    const { data }: AxiosResponse<any> = await API.userRegister(registerMessage)
-    if (data.statusCode === 400) {
-      return AntdMessage.error(data.message);
+    const { data }: AxiosResponse<any> = await API.userRegister(registerMessage);
+    // 分支判断statusCode
+    switch (data.statusCode) {
+      case 400:
+        return AntdMessage.error(data.message);
     }
+
     dispatch(changeUserRegister(data))
   }
 }
@@ -41,8 +45,9 @@ export const userRegister = (registerMessage: RegisterDto) => {
  */
 export const userLogin = (loginMessage: LoginDto) => {
   return async (dispatch: Dispatch<any>) => {
+    // 请求接口
     const { data }: AxiosResponse<any> = await API.userLogin(loginMessage);
-
+    // 分支判断statusCode
     switch (data.statusCode) {
       case 400:
         return AntdMessage.error(data.message);
@@ -52,7 +57,6 @@ export const userLogin = (loginMessage: LoginDto) => {
         AntdMessage.success(data.message);
         dispatch(changeUserLogin(true));
     }
-    window.localStorage.setItem('USER_ID', data.userInfo.id);
     window.localStorage.setItem(`token`, data.userInfo.token);
   }
 }
@@ -63,6 +67,29 @@ export const userLogin = (loginMessage: LoginDto) => {
 export const actionUserToken = () => {
   return async (dispatch: Dispatch<any>) => {
     const { data }: AxiosResponse<any> = await API.userToken();
+    // 分支判断statusCode
+    switch (data.statusCode) {
+      case 401:
+        window.localStorage.removeItem(`token`);
+        break;
+    }
+    // dispatch
     dispatch(changeUserToken(data));
+  }
+}
+
+/**
+ * 退出登录
+ */
+export const actionLogout = () => {
+  return async (dispatch: Dispatch<any>) => {
+    // 清空localStorage
+    window.localStorage.removeItem(`token`)
+    // 重置登录状态
+    dispatch(changeUserLogin(false))
+    // 清空用户信息
+    dispatch(changeUserToken({}));
+    // 全局提示
+    AntdMessage.warning('登出成功')
   }
 }

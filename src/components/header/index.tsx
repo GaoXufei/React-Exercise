@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { View, LogoWrapper, NavWrapper } from './styled'
 import { NavLink } from 'react-router-dom';
-import ModuleUserInfo from '@/modules/user/login-header-info.module'
+import ModuleUserInfo from '@/modules/user/loginHeaderInfo.module'
 
 export default () => {
   return (
@@ -15,14 +15,9 @@ export default () => {
             <li><NavLink to={`/posts`} activeClassName={`actived`}>首页</NavLink></li>
           </ul>
         </nav>
-        <aside>
-          <ul>
-            <li>
-              <NavLink to={`/user`} activeClassName={`actived`}>注册</NavLink>
-            </li>
-          </ul>
-          <ModuleUserInfo />
-        </aside>
+
+        <ModuleUserInfo />
+
       </NavWrapper>
     </View>
   );

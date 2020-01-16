@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import { LayoutWrapper } from '../../layouts/default';
+import { LayoutUserHomeWrapper } from '../../layouts/default';
 
 const LoginOrRegister = (props: any) => {
   return (
-    <LayoutWrapper>
+    <LayoutUserHomeWrapper>
       UserHome
-      {/* { renderRoutes(props.route) } */}
-    </LayoutWrapper>
+    </LayoutUserHomeWrapper>
   );
 }
 

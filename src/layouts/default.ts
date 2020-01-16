@@ -13,3 +13,7 @@ export const LayoutWrapper: any = styled.div`
   ${ (props: any) => props.padding ? paddingMixin : null};
   margin: ${ (props: any) => props.centerMargin ? '0 auto' : 'auto'};
 `;
+
+export const LayoutUserHomeWrapper: any = styled.div`
+  min-height: 500px;
+`;

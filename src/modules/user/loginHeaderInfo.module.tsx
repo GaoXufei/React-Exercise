@@ -1,46 +1,43 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { NavLink } from 'react-router-dom';
-import { actionUserToken } from '@/pages/user/store/actionCreators'
+import { connect } from 'react-redux';
+import { actionUserToken, actionLogout } from '@/pages/user/store/actionCreators'
+import { HeaderLoginComponent, HeaderUnLoginComponent } from '@/components/headerLogin'
 
 const HeaderLoginInfo = (props: any) => {
-  const { userInfo } = props;
-  const { getUserByToken } = props;
-  console.log(userInfo)
+  // 获取state
+  const { userInfo, isLogin } = props;
+  // 获取action
+  const { reduxActionUserByToken, reduxLogout } = props;
+
   React.useEffect(() => {
-    if (!userInfo.size && !userInfo) {
-      getUserByToken()
-    }
+    isLogin && reduxActionUserByToken()
     // eslint-disable-next-line
-  }, [userInfo])
+  }, [isLogin])
 
   return (
     <aside>
       {
-        userInfo
+        // 如果有userInfo数据
+        userInfo.username
           ?
-          (<div>{userInfo.username}</div >)
+          <HeaderLoginComponent handleLogout={reduxLogout} userInfo={userInfo} />
           :
-          (
-            <ul>
-              <li>
-                <NavLink to={`/user`} activeClassName={`actived`}>注册</NavLink>
-              </li>
-            </ul>
-          )
+          <HeaderUnLoginComponent />
       }
     </aside>
   )
 }
 
 const mapStateToProps = (state: any) => ({
-  userInfo: state.getIn(['users', '_userInfo'])
+  userInfo: state.getIn(['users', '_userInfo']).toJS(),
+  isLogin: state.getIn(['users', 'isLogin'])
 })
 
 const mapDispatchProps = (dispatch: Dispatch<any>): any => {
   return {
-    getUserByToken: () => dispatch(actionUserToken())
+    reduxActionUserByToken: () => dispatch(actionUserToken()),
+    reduxLogout: () => dispatch(actionLogout())
   }
 }
 

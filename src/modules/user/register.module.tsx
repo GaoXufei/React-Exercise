@@ -19,25 +19,49 @@ const RegisterModule = (props: { form: WrappedFormUtils, playHandleSubmit: any }
     setConfirmDirty(confirmDirty || !!value)
   }
 
+  /**
+   * 提交事件
+   * @param event 事件实例
+   */
   const _handleSubmit = (event: any) => {
+    // 清除默认动作
     event.preventDefault();
+    // 获取表单数据
     form.validateFields((err: any, values: any) => {
+      // 如果表单验证全部通过
       if (!err) {
+        // 删除确认密码
         delete values.confirm;
+        // 执行父组件传进来的提交方法
         playHandleSubmit(values)
       }
     })
   }
 
+  /**
+   * 验证确认密码
+   * @param rule 验证规则
+   * @param value 密码
+   * @param callback 回调
+   */
   const validateToNextPassword = (rule: any, value: any, callback: any) => {
+    // 有值并且已经输入过
     if (value && confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
     callback()
   }
 
+  /**
+   * 验证确认密码
+   * @param rule 验证规则
+   * @param value 密码
+   * @param callback 回调
+   */
   const compareToFirstPassword = (rule: any, value: any, callback: any) => {
+    // 获取密码输入
     const _password = form.getFieldValue('password');
+    // 如果确认密码已输入，确认密码的值与输入密码不匹配
     if (value && value !== _password) {
       callback(`与密码不匹配`)
     } else {
